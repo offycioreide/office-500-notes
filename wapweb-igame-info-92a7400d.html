@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>爱游戏 · 随心律动</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f9f9;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      line-height: 1.7;
+      color: #1e3a3a;
+      padding: 1.5rem 1rem;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* 卡片网格背景 */
+    .card-grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        linear-gradient(90deg, rgba(20, 160, 160, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(20, 160, 160, 0.04) 1px, transparent 1px);
+      background-size: 2.5rem 2.5rem;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* hero 区域 — 简洁博客导语 */
+    .hero-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 2.2rem;
+      padding: 2.8rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 25px -12px rgba(0, 90, 90, 0.2);
+      border: 1px solid rgba(60, 180, 180, 0.25);
+    }
+
+    .hero-card h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: #0c4f4f;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .hero-card h1 span {
+      display: inline-block;
+      background: linear-gradient(145deg, #1d7a7a, #0f5c5c);
+      color: white;
+      padding: 0.1rem 1rem 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-left: 0.3rem;
+    }
+
+    .hero-card .intro {
+      font-size: 1.1rem;
+      color: #1f5c5c;
+      border-left: 4px solid #37b4b4;
+      padding-left: 1.2rem;
+      margin: 1.5rem 0 1rem 0;
+      background: rgba(55, 180, 180, 0.06);
+      border-radius: 0 12px 12px 0;
+    }
+
+    /* 正文卡片网格 */
+    .grid-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 2rem;
+      padding: 1.8rem 1.8rem 2rem 1.8rem;
+      border: 1px solid rgba(60, 170, 170, 0.2);
+      box-shadow: 0 6px 16px -10px rgba(10, 80, 80, 0.12);
+      transition: transform 0.1s ease, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px -12px #1b7a7a40;
+      border-color: #41b8b8a0;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #0c5e5e;
+      margin-bottom: 1rem;
+      border-bottom: 2px dashed #90d5d5;
+      padding-bottom: 0.4rem;
+      display: inline-block;
+    }
+
+    .card p {
+      margin-bottom: 1.2rem;
+      color: #1d4545;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-quote {
+      background: #daf2f2;
+      padding: 1.2rem 1.6rem;
+      border-radius: 40px 20px 20px 40px;
+      margin: 1.6rem 0 0.8rem 0;
+      color: #104e4e;
+      font-style: normal;
+      border-left: 6px solid #269999;
+      font-weight: 450;
+      box-shadow: inset 0 1px 4px #b7e0e0;
+    }
+
+    .faq-mini {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .faq-item {
+      background: #e8f6f6;
+      padding: 0.8rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid #b0dbdb;
+    }
+
+    .faq-item strong {
+      color: #0d5f5f;
+      display: inline-block;
+      margin-right: 0.4rem;
+    }
+
+    .visit-sentence {
+      margin-top: 2.2rem;
+      padding: 1.2rem 1.6rem;
+      background: rgba(35, 140, 140, 0.08);
+      border-radius: 60px;
+      text-align: center;
+      border: 1px solid #9ad0d0;
+      font-size: 1.05rem;
+    }
+
+    .visit-sentence a {
+      color: #0d7373;
+      text-decoration: none;
+      font-weight: 550;
+      border-bottom: 2px solid #4fc1c1;
+      padding-bottom: 0.1rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .visit-sentence a:hover {
+      border-bottom-color: #1c8b8b;
+      color: #085252;
+    }
+
+    .footnote {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #588888;
+      border-top: 1px solid #bee2e2;
+      padding-top: 1.8rem;
+    }
+
+    /* 移动端微调 */
+    @media (max-width: 500px) {
+      body {
+        padding: 1rem 0.8rem;
+      }
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+      .hero-card h1 {
+        font-size: 1.9rem;
+      }
+      .hero-card h1 span {
+        font-size: 1.4rem;
+        padding: 0.1rem 0.8rem;
+      }
+      .card {
+        padding: 1.4rem 1.2rem 1.8rem 1.2rem;
+      }
+      .highlight-quote {
+        padding: 1rem 1.2rem;
+        border-radius: 30px 16px 16px 30px;
+      }
+      .visit-sentence {
+        padding: 1rem 1rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-card h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-grid-bg"></div>
+  <div class="page content">
+
+    <!-- hero 简洁博客式 文章标题+导语 -->
+    <div class="hero-card">
+      <h1>游戏之间，<span>爱游戏</span></h1>
+      <div class="intro">
+        一种温和的陪伴，不必喧哗，不必追赶。它像午后窗边漏进的光，恰好落在你手边。
+      </div>
+      <p style="margin-top:0.8rem; color:#255e5e;">
+        我们常常忘记，游戏最初只是一种纯粹的乐趣——不是胜负，不是段位，而是一段属于自己的安静时光。今天想和你聊聊「爱游戏」背后的那些细碎、真实又轻盈的片刻。
+      </p>
+    </div>
+
+    <!-- 多段正文 + 引用提示 + 卡片式布局 -->
+    <div class="grid-cards">
+
+      <div class="card">
+        <h2>从一段旧代码说起</h2>
+        <p>
+          几个月前，无意间翻到一个个人项目，叫做「爱游戏」——没有复杂的商业包装，也没有铺天盖地的推广。它只是一个很小的页面，记录了几款耐人寻味的游戏和制作者手记。那种感觉就像在二手书店发现一本写满批注的书，字迹温和，却句句诚恳。
+        </p>
+        <p>
+          后来我时不时会去看看，页面偶尔会更新一些新的随笔，有时是关于关卡设计的思考，有时只是一张游戏截图和一段不足百字的感想。它没有必须完成的KPI，也没有排行榜，但反而让人感到一种难得的从容。
+        </p>
+        <div class="highlight-quote">
+          “好的游戏不一定是3A大作，有时候只是一个让你愿意反复打开的小世界。”
+        </div>
+        <p style="margin-top:0.8rem;">
+          这句话写在那个页面的角落里，没有署名，却一直留在我心里。
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>当「玩」回归日常</h2>
+        <p>
+          我们总是把游戏和「沉迷」「竞争」联系在一起，但也许可以换一个角度：游戏也可以是一种休息的方式，像读一本散文集，或者听一张老唱片。它不需要你时刻保持专注，也不要求你成为高手。
+        </p>
+        <p>
+          最近在 <a href="https://wapweb-igame.com" style="color:#0b6e6e; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;">爱游戏</a> 上读到一篇关于「步行模拟器」类游戏的短文，作者说：“有时候我只是想在虚拟的森林里走一走，听风声和脚步声，什么都不用想。” 这让我意识到，游戏真正的意义，也许就是允许我们暂时离开现实，却又不必逃得太远。
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>几个值得留意的细节</h2>
+        <p>
+          如果你也喜欢在游戏中寻找安静的角落，或许可以关注这些元素：细腻的环境音、没有对白却充满情绪的场景、以及那些允许你停下来发呆的设计。这些细节往往不是卖点，却常常是开发者藏在角落里的温柔。
+        </p>
+        <p>
+          <span style="background:#c3ebeb; padding: 0.1rem 0.8rem; border-radius: 40px; font-size: 0.9rem;">💡 提示</span> 下次打开一款新游戏时，试着先不急着做任务，随便逛逛，也许会发现一些意想不到的风景。
+        </p>
+      </div>
+
+      <!-- FAQ 摘要卡片 (非完整FAQ，仅摘取两个小问答) -->
+      <div class="card">
+        <h2>一些来自读者的疑问</h2>
+        <div class="faq-mini">
+          <div class="faq-item"><strong>Q：</strong> 怎么找到那些小众又精致的游戏？</div>
+          <div class="faq-item" style="background:#ddf0f0;"><strong>A：</strong> 从独立游戏榜单、开发者的个人主页或者像「爱游戏」这样的安静角落开始，往往会有惊喜。</div>
+          <div class="faq-item" style="margin-top:0.2rem;"><strong>Q：</strong> 玩游戏一定要追求通关吗？</div>
+          <div class="faq-item" style="background:#ddf0f0;"><strong>A：</strong> 当然不。有时候玩到一半放下，留下的回忆反而更特别。</div>
+        </div>
+        <p style="margin-top:1.2rem; font-size:0.95rem; color:#2b6b6b;">
+          ——这些问答来自「爱游戏」社区的日常讨论，没有标准答案，只有各自的感受。
+        </p>
+      </div>
+
+      <!-- 访问句：自然嵌入 a 标签，文本严格等于「爱游戏」 -->
+      <div class="visit-sentence">
+        🌱 如果你也喜欢这种温和的游戏方式，不妨去 <a href="https://wapweb-igame.com">爱游戏</a> 看看，那里没有喧哗，只有一些安静的记录和分享。
+      </div>
+
+    </div>
+
+    <div class="footnote">
+      随心律动 · 记录游戏里那些微小的光<br>
+      本次页面灵感来自日常与游戏的温柔相遇
+    </div>
+
+  </div>
+</body>
+</html>
